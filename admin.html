@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin — JC COMPUTERS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+ 
+  <style>
+    :root {
+      --verde:   #1dde6e;
+      --verde2:  #0fbf58;
+      --fondo:   #0f0f0f;
+      --fondo2:  #181818;
+      --fondo3:  #222;
+      --borde:   #2a2a2a;
+      --texto:   #f0f0f0;
+      --muted:   #888;
+      --danger:  #e05555;
+      --radius:  14px;
+    }
+ 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+ 
+    /* ─── HEADER ─────────────────────────────── */
+    header {
+      background: var(--fondo2);
+      border-bottom: 1px solid var(--borde);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+ 
+    header .logo-dot {
+      width: 10px; height: 10px;
+      background: var(--verde);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--verde);
+      flex-shrink: 0;
+    }
+ 
+    header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--texto);
+    }
+ 
+    header span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-left: auto;
+      font-weight: 300;
+    }
+ 
+    /* ─── LAYOUT ─────────────────────────────── */
+    .contenido {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 0;
+      min-height: calc(100vh - 65px);
+    }
+ 
+    /* ─── PANEL IZQUIERDO (formulario) ───────── */
+    .panel-form {
+      background: var(--fondo2);
+      border-right: 1px solid var(--borde);
+      padding: 32px 28px;
+      position: sticky;
+      top: 65px;
+      height: calc(100vh - 65px);
+      overflow-y: auto;
+    }
+ 
+    .panel-form h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--verde);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 24px;
+    }
+ 
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+ 
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border: 1px solid var(--borde);
+      border-radius: var(--radius);
+      background: var(--fondo3);
+      color: var(--texto);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+ 
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--verde);
+    }
+ 
+    textarea { resize: vertical; min-height: 80px; }
+ 
+    select option { background: var(--fondo3); }
+ 
+ 
+    /* ─── TABS IMAGEN ────────────────────────────── */
+    .tabs-img {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+ 
+    .tab-btn {
+      flex: 1;
+      background: var(--fondo3);
+      border: 1px solid var(--borde);
+      color: var(--muted);
+      padding: 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      transition: all 0.2s;
+      width: auto;
+    }
+ 
+    .tab-btn.activo-tab {
+      background: var(--verde-bg);
+      border-color: rgba(29,222,110,0.3);
+      color: var(--verde);
+    }
+ 
+    .preview-box {
+      background: var(--fondo3);
+      border: 1px solid var(--borde);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+ 
+    .preview-box img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+ 
+    .hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+ 
+    .hint.warn { color: #e08855; }
+    .hint b    { color: var(--muted2); font-weight: 500; }
+ 
+    :root { --verde-bg: rgba(29, 222, 110, 0.08); }
+    /* ─── UPLOAD BOX ─────────────────────────── */
+    .upload-box {
+      background: var(--fondo3);
+      border: 2px dashed var(--borde);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .upload-box:hover {
+      border-color: var(--verde);
+      background: #1a2a1e;
+    }
+ 
+    .upload-box #previewImg {
+      display: none;
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+ 
+    .upload-box p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+ 
+    /* ─── BOTÓN GUARDAR ──────────────────────── */
+    .btn-guardar {
+      background: var(--verde);
+      color: #000;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      transition: background 0.2s, transform 0.1s;
+    }
+ 
+    .btn-guardar:hover  { background: var(--verde2); }
+    .btn-guardar:active { transform: scale(0.98); }
+    .btn-guardar:disabled { opacity: 0.6; cursor: not-allowed; }
+ 
+    /* ─── PANEL DERECHO (lista) ──────────────── */
+    .panel-lista {
+      padding: 32px 36px;
+      overflow-y: auto;
+    }
+ 
+    .panel-lista-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+ 
+    .panel-lista-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--verde);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+ 
+    .filtro-select {
+      width: auto;
+      min-width: 150px;
+      margin-bottom: 0;
+      font-size: 0.85rem;
+      padding: 9px 12px;
+    }
+ 
+    /* ─── TARJETA DE PRODUCTO EN ADMIN ───────── */
+    .producto-admin {
+      background: var(--fondo2);
+      border: 1px solid var(--borde);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+ 
+    .producto-admin:hover {
+      border-color: #3a3a3a;
+    }
+ 
+    .producto-admin img {
+      width: 90px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: var(--fondo3);
+    }
+ 
+    .producto-admin-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+ 
+    .producto-admin-info b {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+ 
+    .producto-admin-info p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 300px;
+    }
+ 
+    .categoria-badge {
+      display: inline-block;
+      background: #1a2a1e;
+      color: var(--verde);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 2px 8px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+ 
+    .precio-admin {
+      font-size: 0.88rem;
+      color: #ccc;
+      font-weight: 500;
+    }
+ 
+    .producto-admin-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+ 
+    .btn-editar, .btn-eliminar {
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+ 
+    .btn-editar   { background: #1a2a1e; color: var(--verde); }
+    .btn-eliminar { background: #2a1a1a; color: var(--danger); }
+    .btn-editar:hover   { opacity: 0.8; }
+    .btn-eliminar:hover { opacity: 0.8; }
+ 
+    hr { display: none; }
+ 
+    /* ─── SCROLLBAR personalizado ────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--borde); border-radius: 10px; }
+ 
+    /* ─── RESPONSIVE MOBILE-FIRST ───────────────── */
+    @media (max-width: 780px) {
+      /* Layout: una columna, formulario arriba, lista abajo */
+      .contenido       { grid-template-columns: 1fr; }
+      .panel-form      { position: static; height: auto; padding: 24px 16px; }
+      .panel-lista     { padding: 20px 16px 40px; }
+ 
+      /* Header */
+      header           { padding: 14px 16px; flex-wrap: wrap; gap: 8px; }
+      header h1        { font-size: 0.95rem; }
+      header span      { display: none; }
+ 
+      /* Tarjeta de producto en admin: foto + info arriba, botones abajo */
+      .producto-admin  {
+        grid-template-columns: 80px 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px;
+      }
+      .producto-admin img { width: 80px; height: 62px; }
+      .producto-admin-btns {
+        flex-direction: row;
+        grid-column: 1 / -1;
+        gap: 8px;
+      }
+      .btn-editar, .btn-eliminar {
+        flex: 1;
+        padding: 10px;
+        font-size: 0.85rem;
+        min-height: 40px;
+      }
+ 
+      /* Inputs más grandes para touch */
+      input, textarea, select { font-size: 1rem; padding: 13px 14px; }
+      .btn-guardar { padding: 15px; font-size: 1rem; min-height: 48px; }
+ 
+      /* Filtro más compacto */
+      .panel-lista-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .filtro-select      { width: 100%; }
+    }
+ 
+    @media (max-width: 400px) {
+      header h1  { font-size: 0.85rem; }
+      .panel-form, .panel-lista { padding-left: 12px; padding-right: 12px; }
+    }
+ 
+    /* Touch: botones cómodos */
+    @media (pointer: coarse) {
+      .btn-editar, .btn-eliminar { min-height: 42px; }
+      .btn-guardar               { min-height: 50px; }
+      input, textarea, select    { min-height: 44px; }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+  <header>
+    <div class="logo-dot"></div>
+    <h1>JC COMPUTERS — Panel Admin</h1>
+    <span>Solo tú puedes ver esto</span>
+  </header>
+ 
+  <div class="contenido">
+ 
+    <!-- ── FORMULARIO ── -->
+    <aside class="panel-form">
+      <h2>📦 Nuevo / Editar</h2>
+ 
+      <label>Nombre del producto</label>
+      <input id="nombre" placeholder="Ej: ASUS VivoBook 15">
+ 
+      <label>Precio</label>
+      <input id="precio" placeholder="Ej: 4500 Bs">
+ 
+      <label>Descripción (opcional)</label>
+      <textarea id="descripcion" placeholder="Procesador, RAM, pantalla…"></textarea>
+ 
+      <label>Categoría</label>
+      <select id="categoria">
+        <option value="basica">Básica</option>
+        <option value="gamer">Gamer</option>
+        <option value="x360">X360</option>
+        <option value="premium">Premium</option>
+      </select>
+ 
+      <label>Imagen del producto</label>
+ 
+      <div class="upload-box" onclick="document.getElementById('imagenFile').click()">
+        <img id="previewImg" alt="Vista previa" style="display:none;width:100%;max-height:200px;object-fit:cover;border-radius:10px;margin-bottom:8px">
+        <p id="uploadText">📷 Toca aquí para elegir foto o tomar una</p>
+      </div>
+ 
+      <!-- Input que abre galería Y cámara en móvil -->
+      <input type="file" id="imagenFile" accept="image/*" capture="environment" hidden>
+ 
+      <!-- Campo oculto para mantener imagen al editar -->
+      <input type="hidden" id="imagenActual">
+        <p class="hint warn">⚠️ Requiere Firebase Storage (plan de pago). Usa mejor "Pegar enlace".</p>
+      </div>
+ 
+      <button class="btn-guardar" onclick="agregarProducto()">Guardar Producto</button>
+    </aside>
+ 
+    <!-- ── LISTA ── -->
+    <main class="panel-lista">
+      <div class="panel-lista-header">
+        <h2>🗂️ Productos en tienda</h2>
+        <select id="filtroCategoria" class="filtro-select" onchange="mostrarProductosAdmin()">
+          <option value="todos">Todos</option>
+          <option value="basica">Básica</option>
+          <option value="gamer">Gamer</option>
+          <option value="x360">X360</option>
+          <option value="premium">Premium</option>
+        </select>
+      </div>
+ 
+      <div id="lista-productos"></div>
+    </main>
+ 
+  </div>
+ 
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

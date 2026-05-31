@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JC COMPUTERS — Laptops en La Paz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+ 
+  <style>
+    /* ─── RESET & VARIABLES ──────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --verde:    #1dde6e;
+      --verde2:   #0fbf58;
+      --verde-bg: rgba(29, 222, 110, 0.08);
+      --wa:       #25D366;
+      --fondo:    #0d0d0d;
+      --fondo2:   #141414;
+      --fondo3:   #1a1a1a;
+      --fondo4:   #202020;
+      --borde:    rgba(255,255,255,0.07);
+      --borde2:   rgba(255,255,255,0.12);
+      --texto:    #f5f5f5;
+      --muted:    #777;
+      --muted2:   #999;
+      --radius:   16px;
+      --radius-sm: 10px;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+ 
+    /* ─── BARRA DE ANUNCIO ───────────────────────── */
+    .anuncio {
+      background: var(--verde);
+      color: #000;
+      text-align: center;
+      padding: 8px 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+ 
+    /* ─── HEADER ─────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--borde);
+      padding: 0 clamp(20px, 5vw, 60px);
+    }
+ 
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 20px;
+    }
+ 
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+ 
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: var(--verde);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #000;
+      flex-shrink: 0;
+    }
+ 
+    .logo-text {
+      display: flex; flex-direction: column;
+    }
+ 
+    .logo-text strong {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--texto);
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+    }
+ 
+    .logo-text span {
+      font-size: 0.72rem;
+      color: var(--muted2);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+    }
+ 
+    /* Buscador header */
+    .buscador-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 340px;
+    }
+ 
+    .buscador-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+ 
+    #buscador {
+      width: 100%;
+      padding: 10px 14px 10px 40px;
+      background: var(--fondo3);
+      border: 1px solid var(--borde2);
+      border-radius: 10px;
+      color: var(--texto);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+ 
+    #buscador:focus {
+      border-color: var(--verde);
+    }
+ 
+    #buscador::placeholder { color: var(--muted); }
+ 
+    /* Btn WA header */
+    .btn-wa-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wa);
+      color: #fff;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+ 
+    .btn-wa-header:hover { opacity: 0.88; }
+ 
+    /* ─── HERO ───────────────────────────────────── */
+    .hero {
+      padding: clamp(60px, 10vw, 100px) clamp(20px, 5vw, 60px);
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    /* grid de fondo decorativo */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--borde) 1px, transparent 1px),
+        linear-gradient(90deg, var(--borde) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+    }
+ 
+    /* brillo verde esquina */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(29,222,110,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+ 
+    .hero-content {
+      position: relative;
+      max-width: 680px;
+    }
+ 
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--verde-bg);
+      border: 1px solid rgba(29,222,110,0.25);
+      color: var(--verde);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+ 
+    .hero-badge span {
+      width: 6px; height: 6px;
+      background: var(--verde);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 6px var(--verde);
+    }
+ 
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+ 
+    .hero h1 em {
+      font-style: normal;
+      color: var(--verde);
+    }
+ 
+    .hero p {
+      font-size: 1rem;
+      color: var(--muted2);
+      max-width: 480px;
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+ 
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+ 
+    .btn-hero-wa {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wa);
+      color: #fff;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+ 
+    .btn-hero-wa:hover { transform: translateY(-2px); opacity: 0.9; }
+ 
+    .btn-hero-map {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--fondo3);
+      border: 1px solid var(--borde2);
+      color: var(--texto);
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: var(--radius-sm);
+      font-weight: 400;
+      font-size: 0.95rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+ 
+    .btn-hero-map:hover { background: var(--fondo4); border-color: var(--verde); }
+ 
+    /* ─── STATS ──────────────────────────────────── */
+    .stats {
+      display: flex;
+      gap: 40px;
+      padding: 0 clamp(20px, 5vw, 60px) 50px;
+      flex-wrap: wrap;
+    }
+ 
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+ 
+    .stat strong {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--texto);
+      line-height: 1;
+    }
+ 
+    .stat span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+ 
+    /* ─── SECCIÓN CATÁLOGO ───────────────────────── */
+    .seccion-catalogo {
+      padding: 0 clamp(20px, 5vw, 60px) 80px;
+    }
+ 
+    .seccion-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+ 
+    .seccion-titulo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--texto);
+    }
+ 
+    .seccion-titulo span {
+      color: var(--verde);
+    }
+ 
+    /* ─── FILTROS / CATEGORÍAS ───────────────────── */
+    .categorias {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+ 
+    .categorias button, .btn-cat {
+      background: var(--fondo3);
+      border: 1px solid var(--borde2);
+      color: var(--muted2);
+      padding: 9px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+ 
+    .categorias button:hover, .btn-cat:hover {
+      border-color: var(--verde);
+      color: var(--verde);
+    }
+ 
+    .categorias button.activo, .btn-cat.activo {
+      background: var(--verde);
+      border-color: var(--verde);
+      color: #000;
+      font-weight: 500;
+    }
+ 
+    /* ─── GRID DE PRODUCTOS ──────────────────────── */
+    #contenedor-productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+ 
+    /* ─── TARJETA PRODUCTO ───────────────────────── */
+    .producto {
+      background: var(--fondo2);
+      border: 1px solid var(--borde);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+ 
+    .producto:hover {
+      transform: translateY(-4px);
+      border-color: rgba(29,222,110,0.2);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+ 
+    .producto-imagen-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .producto img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s;
+    }
+ 
+    .producto:hover img {
+      transform: scale(1.04);
+    }
+ 
+    .badge-cat {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(0,0,0,0.7);
+      color: var(--verde);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(29,222,110,0.3);
+      backdrop-filter: blur(6px);
+    }
+ 
+    .info {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+ 
+    .info h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      color: var(--texto);
+    }
+ 
+    .descripcion {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 12px;
+      line-height: 1.5;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+ 
+    .precio {
+      font-family: 'Syne', sans-serif;
+      color: var(--verde);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+ 
+    .producto-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+ 
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--wa);
+      color: #fff;
+      border: none;
+      padding: 11px;
+      width: 100%;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+ 
+    .btn-whatsapp:hover { opacity: 0.88; transform: scale(0.99); }
+ 
+    .btn-mapa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--borde2);
+      color: var(--muted2);
+      text-align: center;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      transition: border-color 0.2s, color 0.2s;
+    }
+ 
+    .btn-mapa:hover { border-color: var(--verde); color: var(--verde); }
+ 
+    /* ─── ESTADO VACÍO ───────────────────────────── */
+    .vacio {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+ 
+    .vacio p { font-size: 0.95rem; }
+ 
+    /* ─── SECCIÓN NOSOTROS ───────────────────────── */
+    .seccion-info {
+      background: var(--fondo2);
+      border-top: 1px solid var(--borde);
+      border-bottom: 1px solid var(--borde);
+      padding: 60px clamp(20px, 5vw, 60px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+ 
+    .info-texto h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+ 
+    .info-texto h2 em {
+      font-style: normal;
+      color: var(--verde);
+    }
+ 
+    .info-texto p {
+      color: var(--muted2);
+      font-weight: 300;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+ 
+    .info-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+ 
+    .chip {
+      background: var(--fondo3);
+      border: 1px solid var(--borde2);
+      color: var(--muted2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+ 
+    .info-contacto {
+      background: var(--fondo3);
+      border: 1px solid var(--borde2);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+ 
+    .info-contacto h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--verde);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+ 
+    .contacto-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--borde);
+    }
+ 
+    .contacto-item:last-of-type { border-bottom: none; }
+ 
+    .contacto-icono {
+      width: 36px; height: 36px;
+      background: var(--fondo4);
+      border: 1px solid var(--borde2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+ 
+    .contacto-datos strong {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+ 
+    .contacto-datos span {
+      font-size: 0.92rem;
+      color: var(--texto);
+    }
+ 
+    .btn-contacto-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--wa);
+      color: #fff;
+      text-decoration: none;
+      padding: 13px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      transition: opacity 0.2s;
+    }
+ 
+    .btn-contacto-wa:hover { opacity: 0.88; }
+ 
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      padding: 40px clamp(20px, 5vw, 60px);
+      border-top: 1px solid var(--borde);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+ 
+    footer p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+ 
+    footer .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--verde);
+    }
+ 
+    /* ─── RESPONSIVE MOBILE-FIRST ───────────────── */
+ 
+    @media (max-width: 900px) {
+      .seccion-info { grid-template-columns: 1fr; }
+    }
+ 
+    @media (max-width: 640px) {
+      header { padding: 0 14px; }
+      .header-inner {
+        flex-wrap: wrap; height: auto;
+        padding: 10px 0; gap: 8px;
+      }
+      .logo          { order: 1; }
+      .btn-wa-header { order: 2; padding: 8px 12px; font-size: 0.8rem; }
+      .btn-wa-header span { display: none; }
+      .buscador-wrap { order: 3; width: 100%; max-width: 100%; }
+      #buscador      { width: 100%; }
+ 
+      .hero          { padding: 40px 16px 30px; }
+      .hero h1       { font-size: 1.9rem; }
+      .hero p        { font-size: 0.92rem; }
+      .hero-btns     { flex-direction: column; }
+      .btn-hero-wa, .btn-hero-map {
+        width: 100%; justify-content: center;
+        padding: 14px; font-size: 1rem;
+      }
+ 
+      .stats         { padding: 0 16px 40px; gap: 20px; }
+      .stat strong   { font-size: 1.5rem; }
+ 
+      .seccion-catalogo { padding: 0 14px 60px; }
+      .seccion-titulo   { font-size: 1.2rem; }
+ 
+      .categorias    {
+        flex-wrap: nowrap; overflow-x: auto;
+        padding-bottom: 6px; gap: 6px;
+      }
+      .categorias::-webkit-scrollbar { display: none; }
+      .btn-cat       { flex-shrink: 0; }
+ 
+      #contenedor-productos { grid-template-columns: 1fr; gap: 14px; }
+ 
+      .producto img  { height: 200px; }
+      .info          { padding: 14px; }
+      .info h2       { font-size: 0.95rem; }
+      .precio        { font-size: 1.2rem; }
+      .btn-whatsapp  { padding: 13px; font-size: 0.95rem; }
+      .btn-mapa      { padding: 12px; font-size: 0.9rem; }
+ 
+      .seccion-info  { padding: 40px 16px; }
+      .info-contacto { padding: 20px; }
+ 
+      footer {
+        flex-direction: column; align-items: center;
+        text-align: center; padding: 30px 16px;
+      }
+      .anuncio { font-size: 0.72rem; padding: 7px 12px; }
+    }
+ 
+    @media (max-width: 400px) {
+      .logo-text     { display: none; }
+      .hero h1       { font-size: 1.65rem; }
+      .stats         { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+ 
+    @media (pointer: coarse) {
+      .btn-whatsapp, .btn-mapa,
+      .btn-hero-wa, .btn-hero-map,
+      .btn-cat       { min-height: 44px; }
+      .btn-wa-header { min-height: 40px; }
+    }
+ 
+    /* ─── LOADER ─────────────────────────────────── */
+    .loader {
+      grid-column: 1/-1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 60px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+ 
+    .loader-dot {
+      width: 8px; height: 8px;
+      background: var(--verde);
+      border-radius: 50%;
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+ 
+    .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+ 
+    @keyframes pulse {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40%            { transform: scale(1);   opacity: 1; }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+  <!-- ANUNCIO -->
+  <div class="anuncio">
+    🚚 VISITENOS &nbsp;·&nbsp; Garantía incluida &nbsp;·&nbsp; Consulta sin compromiso
+  </div>
+ 
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+ 
+      <a href="#" class="logo">
+        <div class="logo-icon">JC</div>
+        <div class="logo-text">
+          <strong>JC COMPUTERS</strong>
+          <span>TIENDA DE EQUIPOS</span>
+        </div>
+      </a>
+ 
+      <div class="buscador-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input id="buscador" type="search" placeholder="Buscar laptop…" autocomplete="off">
+      </div>
+ 
+      <a href="https://wa.me/59169139649?text=Hola!%20Vi%20su%20tienda%20y%20quiero%20información" target="_blank" class="btn-wa-header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span>WhatsApp</span>
+      </a>
+ 
+    </div>
+  </header>
+ 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span></span> Stock disponible
+      </div>
+      <h1>La laptop que<br>necesitas, <em>aquí</em><br>en SANTA CRUZ DE LA SIERRA.</h1>
+      <p>Básicas, Gamer, 360° y Premium. Precios justos, garantía real y asesoría personalizada por WhatsApp.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/59169139649?text=Hola!%20Quiero%20asesoría%20para%20elegir%20una%20laptop" target="_blank" class="btn-hero-wa">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir asesoría
+        </a>
+        <a href="https://maps.google.com/?q=-16.4996,-68.1336" target="_blank" class="btn-hero-map">
+          📍 Ver ubicación
+        </a>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><strong>40+</strong><span>Modelos disponibles</span></div>
+    <div class="stat"><strong>4</strong><span>Categorías</span></div>
+    <div class="stat"><strong>100%</strong><span>Con garantía</span></div>
+    <div class="stat"><strong>SANTA CRUZ</strong><span>VISITE LA MEJOR TIENDA</span></div>
+  </div>
+ 
+  <!-- CATÁLOGO -->
+  <section class="seccion-catalogo">
+ 
+    <div class="seccion-header">
+      <h2 class="seccion-titulo">Catálogo <span>completo</span></h2>
+    </div>
+ 
+    <div class="categorias">
+      <button class="btn-cat activo" data-cat="todos" onclick="filtrarCategoria('todos')">Todos</button>
+      <button class="btn-cat" data-cat="basica" onclick="filtrarCategoria('basica')">💻 Básica</button>
+      <button class="btn-cat" data-cat="gamer" onclick="filtrarCategoria('gamer')">🎮 Gamer</button>
+      <button class="btn-cat" data-cat="x360" onclick="filtrarCategoria('x360')">🔄 X360</button>
+      <button class="btn-cat" data-cat="premium" onclick="filtrarCategoria('premium')">⭐ Premium</button>
+    </div>
+ 
+    <div id="contenedor-productos">
+      <div class="loader">
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+      </div>
+    </div>
+ 
+  </section>
+ 
+  <!-- NOSOTROS / CONTACTO -->
+  <section class="seccion-info">
+ 
+    <div class="info-texto">
+      <h2>¿Por qué elegir<br><em>JC Computers?</em></h2>
+      <p>Somos una tienda especializada en laptops en La Paz. Te ayudamos a encontrar el equipo ideal según tu presupuesto y necesidades, con atención personalizada.</p>
+      <div class="info-chips">
+        <span class="chip">✅ Garantía incluida</span>
+        <span class="chip">💬 Asesoría gratis</span>
+        <span class="chip">🚚 VISITE RAPIDO</span>
+        <span class="chip">🔒 Compra segura</span>
+      </div>
+    </div>
+ 
+    <div class="info-contacto">
+      <h3>📞 Contacto</h3>
+ 
+      <div class="contacto-item">
+        <div class="contacto-icono">💬</div>
+        <div class="contacto-datos">
+          <strong>WhatsApp</strong>
+          <span>+591 69139649</span>
+        </div>
+      </div>
+ 
+      <div class="contacto-item">
+        <div class="contacto-icono">📍</div>
+        <div class="contacto-datos">
+          <strong>Ubicación</strong>
+          <span>SANTA CRUZ, Bolivia</span>
+        </div>
+      </div>
+ 
+      <div class="contacto-item">
+        <div class="contacto-icono">🕐</div>
+        <div class="contacto-datos">
+          <strong>Horario</strong>
+          <span>Lun–Vie</span>
+        </div>
+      </div>
+ 
+      <a href="https://wa.me/59169139649?text=Hola!%20Quiero%20información%20sobre%20sus%20laptops" target="_blank" class="btn-contacto-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribirnos ahora
+      </a>
+    </div>
+ 
+  </section>
+ 
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">JC COMPUTERS</span>
+    <p>© 2025 JC Computers · Santa Cruz, Bolivia · Tienda de Laptops</p>
+    <p>Hecho con ❤️ para ofrecerte lo mejor</p>
+  </footer>
+ 
+  <script type="module" src="script.js"></script>
+ 
+</body>
+</html>
