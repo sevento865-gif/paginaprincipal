@@ -89,7 +89,7 @@ function mostrarProductos(lista) {
             </button>
  
             <a
-              href="https://maps.google.com/?q=-16.4996,-68.1336"
+              href="https://maps.app.goo.gl/9m31hRoD54zYU5QS7"
               target="_blank"
               class="btn-mapa">
               📍 Cómo llegar
@@ -105,7 +105,7 @@ function mostrarProductos(lista) {
 /* ─── WhatsApp ───────────────────────────────────── */
 function enviarWhatsApp(nombreProducto) {
   const mensaje = `Hola, me interesa la laptop ${nombreProducto}. ¿Está disponible?`;
-  const url     = `https://wa.me/59169139649?text=${encodeURIComponent(mensaje)}`;
+  const url     = `https://wa.me/59169093528?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
 }
 window.enviarWhatsApp = enviarWhatsApp;
