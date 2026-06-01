@@ -449,7 +449,7 @@
       <label>Imagen del producto</label>
  
       <label for="imagenFile" class="upload-box">
-        <img id="previewImg" alt="Vista previa" style="display:none;width:100%;max-height:200px;object-fit:cover;border-radius:10px;margin-bottom:8px">
+        <img id="previewImg" alt="Vista previa" style="display:none;width:100%;max-height:260px;object-fit:contain;border-radius:10px;margin-bottom:8px;background:#111">
         <p id="uploadText">📷 Toca aquí para elegir foto o tomar una</p>
       </label>
  
@@ -457,7 +457,6 @@
  
       <!-- Campo oculto para mantener imagen al editar -->
       <input type="hidden" id="imagenActual">
-        <p class="hint warn">⚠️ Requiere Firebase Storage (plan de pago). Usa mejor "Pegar enlace".</p>
       </div>
  
       <button class="btn-guardar" onclick="agregarProducto()">Guardar Producto</button>
