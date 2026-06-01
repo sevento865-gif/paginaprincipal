@@ -1,4 +1,3 @@
-
 import { db } from "./firebase.js";
  
 import {
@@ -139,9 +138,7 @@ window.mostrarProductosAdmin = async function() {
             onclick="cargarEdicion('${docu.id}','${ne}','${pe}','${de}','${ce}')">
             ✏️ Editar
           </button>
-          <button class="btn-eliminar" onclick="eliminar('${docu.id}')">
-            🗑️ Eliminar
-          </button>
+ 
         </div>
       </div><hr>
     `;
@@ -181,18 +178,7 @@ window.cargarEdicion = function(id, nombre, precio, desc, cat) {
   document.querySelector(".btn-guardar").textContent = "💾 Guardar Cambios";
 };
  
-/* ─── ELIMINAR ───────────────────────────────────── */
-window.eliminar = async function(id) {
-  if (!confirm("¿Seguro que quieres resetear este producto?")) return;
-  await updateDoc(doc(db, "productos", id), {
-    nombre: "",
-    precio: "",
-    descripcion: "",
-    imagen: "",
-    categoria: "basica"
-  });
-  await mostrarProductosAdmin();
-};
+ 
  
 /* ─── LIMPIAR ────────────────────────────────────── */
 function limpiar() {
