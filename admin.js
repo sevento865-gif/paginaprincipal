@@ -1,3 +1,4 @@
+
 import { db } from "./firebase.js";
  
 import {
@@ -67,6 +68,7 @@ window.agregarProducto = async function() {
   }
  
   /* Usar la imagen nueva si eligió una, sino mantener la anterior */
+  /* Si no eligió imagen nueva, mantener la que ya tenía en Firestore */
   const imagen = imagenBase64 || document.getElementById("imagenActual").value || "";
  
   const btn = document.querySelector(".btn-guardar");
@@ -146,33 +148,34 @@ window.mostrarProductosAdmin = async function() {
 };
  
 /* ─── CARGAR datos para editar ───────────────────── */
-window.cargarEdicion = function(id, nombre, precio, desc, cat) {
+window.cargarEdicion = async function(id, nombre, precio, desc, cat) {
   editando     = id;
-  imagenBase64 = "";   // resetear — si no elige nueva imagen, se mantiene la de Firestore
+  imagenBase64 = "";
  
   document.getElementById("nombre").value      = nombre;
   document.getElementById("precio").value      = precio;
   document.getElementById("descripcion").value = desc;
   document.getElementById("categoria").value   = cat;
  
-  /* Guardar imagen actual en campo oculto para no perderla */
-  /* La imagen real se recupera de Firestore al guardar */
-  document.getElementById("imagenActual").value = "";
- 
-  /* Buscar imagen actual en la lista para mostrar preview */
-  const imgs = document.querySelectorAll(".producto-admin img");
-  const btns = document.querySelectorAll(".btn-editar");
-  btns.forEach((btn, i) => {
-    if (btn.getAttribute("onclick").includes(`'${id}'`)) {
-      const src = imgs[i]?.src || "";
-      if (src) {
-        document.getElementById("previewImg").src           = src;
+  /* Leer imagen actual directo de Firestore — sin depender del DOM */
+  try {
+    const { getDoc } = await import("https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js");
+    const snap = await getDoc(doc(db, "productos", id));
+    if (snap.exists()) {
+      const img = snap.data().imagen || "";
+      document.getElementById("imagenActual").value = img;
+      if (img) {
+        document.getElementById("previewImg").src           = img;
         document.getElementById("previewImg").style.display = "block";
         document.getElementById("uploadText").style.display = "none";
-        document.getElementById("imagenActual").value       = src;
+      } else {
+        document.getElementById("previewImg").style.display = "none";
+        document.getElementById("uploadText").style.display = "block";
       }
     }
-  });
+  } catch(e) {
+    console.error("Error cargando imagen:", e);
+  }
  
   document.getElementById("nombre").scrollIntoView({ behavior: "smooth" });
   document.querySelector(".btn-guardar").textContent = "💾 Guardar Cambios";
