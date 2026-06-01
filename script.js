@@ -68,10 +68,10 @@ function mostrarProductos(lista) {
             src="${producto.imagen || ''}"
             alt="${producto.nombre}"
             onerror="this.src='https://placehold.co/400x220/141414/333?text=Sin+imagen'">
-          ${etiqueta ? `<span class="badge-cat">${etiqueta}</span>` : ""}
         </div>
  
         <div class="info">
+          ${etiqueta ? `<span class="badge-cat">${etiqueta}</span>` : ""}
           <h2>${producto.nombre}</h2>
  
           ${producto.descripcion
