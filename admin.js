@@ -1,3 +1,4 @@
+
 import { db } from "./firebase.js";
  
 import {
@@ -6,7 +7,6 @@ import {
   getDocs,
   doc,
   updateDoc,
-  deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
  
 /* ─── Estado ─────────────────────────────────────── */
@@ -183,8 +183,14 @@ window.cargarEdicion = function(id, nombre, precio, desc, cat) {
  
 /* ─── ELIMINAR ───────────────────────────────────── */
 window.eliminar = async function(id) {
-  if (!confirm("¿Seguro que quieres eliminar este producto?")) return;
-  await deleteDoc(doc(db, "productos", id));
+  if (!confirm("¿Seguro que quieres resetear este producto?")) return;
+  await updateDoc(doc(db, "productos", id), {
+    nombre: "",
+    precio: "",
+    descripcion: "",
+    imagen: "",
+    categoria: "basica"
+  });
   await mostrarProductosAdmin();
 };
  
