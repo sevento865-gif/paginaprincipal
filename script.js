@@ -105,7 +105,7 @@ function mostrarProductos(lista) {
 /* ─── WhatsApp ───────────────────────────────────── */
 function enviarWhatsApp(nombreProducto) {
   const mensaje = `Hola, me interesa la laptop ${nombreProducto}. ¿Está disponible?`;
-  const url     = `https://wa.me/59169093528?text=${encodeURIComponent(mensaje)}`;
+  const url     = `https://wa.me/59169139649?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
 }
 window.enviarWhatsApp = enviarWhatsApp;
