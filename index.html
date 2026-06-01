@@ -384,7 +384,7 @@
     /* ─── TARJETA PRODUCTO ───────────────────────── */
     .producto {
       background: var(--fondo2);
-      border: 0px solid var(--borde);
+      border: 1px solid var(--borde);
       border-radius: var(--radius);
       overflow: hidden;
       transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
@@ -402,16 +402,17 @@
       position: relative;
     }
  
-   .producto img {
-    width: 100%;
-    height: 260px;
-    object-fit: contain;
-    background: #111;
-    aspect-ratio: 3/2;
-    border-radius: var(--radius) var(--radius) 0 0;
-    display: block;
-    transition: transform 0.5s;
-}
+    .producto img {
+      width: 100%;
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      aspect-ratio: 3/2;
+      border-radius: var(--radius) var(--radius) 0 0;
+      display: block;
+      transition: transform 0.5s;
+    }
+ 
     .producto:hover img {
       transform: scale(1.04);
     }
