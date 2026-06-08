@@ -1,3 +1,4 @@
+
 import { db } from "./firebase.js";
  
 import {
@@ -89,7 +90,7 @@ function mostrarProductos(lista) {
             </button>
  
             <a
-              href="https://maps.app.goo.gl/9m31hRoD54zYU5QS7"
+              href="https://www.google.com/maps/place/J%26C+computer+%7C+Tienda+de+computadoras/@-17.7905681,-63.2053515,17z/data=!3m1!4b1!4m6!3m5!1s0x93f1e9c110eaaf73:0x79c09d8fc1ba8071!8m2!3d-17.7905681!4d-63.2053515!16s%2Fg%2F11v5v74w80?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               class="btn-mapa">
               📍 Cómo llegar
@@ -138,3 +139,4 @@ function filtrarCategoria(categoria) {
   mostrarProductos(filtrados);
 }
 window.filtrarCategoria = filtrarCategoria;
+ 
